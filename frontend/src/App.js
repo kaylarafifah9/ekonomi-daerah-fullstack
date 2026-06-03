@@ -288,7 +288,13 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
   { id: 'input', label: 'Input Manual', icon: '✏️', group: 'INPUT' },
   { id: 'upload', label: 'Upload CSV', icon: '⬆️', group: 'INPUT' },
 
-  { id: 'tentang', label: 'Tentang Sistem', icon: 'ℹ️', group: 'INFORMASI' }
+  { id: 'tentang', label: 'Tentang Sistem', group: 'INFORMASI' },
+  {
+  id:'perbandingan',
+  label:'Perbandingan',
+  icon:'⚖️',
+  group:'DASHBOARD'
+},
 ];
 
   const inputStyle = {
@@ -317,6 +323,7 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
     upload: '⬆️ Upload CSV',
     analisis: '📈 Analisis Data',
     tentang: 'ℹ️ Tentang Sistem',
+    perbandingan: '⚖️ Perbandingan Daerah',
   };
   const exportCSV = (data, filename) => {
   if (!data.length) return;
@@ -546,6 +553,70 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
             <DataTable data={filterData(pengangguran)} columns={['id','tahun','kabupaten','tingkat_tpt']} onDelete={(id) => handleDelete('pengangguran', id)} colors={colors} />
           </div>
         )}
+        {page === 'perbandingan' && (
+  <div style={cardStyle}>
+    <h2>⚖️ Perbandingan Daerah</h2>
+
+    <p>
+      Ringkasan indikator ekonomi daerah berdasarkan data yang tersedia.
+    </p>
+
+    <table
+      style={{
+        width:'100%',
+        borderCollapse:'collapse'
+      }}
+    >
+      <thead>
+        <tr>
+          <th>Kabupaten</th>
+          <th>PDRB Tertinggi</th>
+          <th>Kemiskinan</th>
+          <th>Pengangguran</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {[...new Set(pdrb.map(d => d.kabupaten))]
+          .map(kab => {
+
+            const p =
+              pdrb.find(
+                d => d.kabupaten === kab
+              );
+
+            const k =
+              kemiskinan.find(
+                d => d.kabupaten === kab
+              );
+
+            const pg =
+              pengangguran.find(
+                d => d.kabupaten === kab
+              );
+
+            return (
+              <tr key={kab}>
+                <td>{kab}</td>
+
+                <td>
+                  {p?.nilai_pdrb || '-'}
+                </td>
+
+                <td>
+                  {k?.persentase || '-'}%
+                </td>
+
+                <td>
+                  {pg?.tingkat_tpt || '-'}%
+                </td>
+              </tr>
+            );
+          })}
+      </tbody>
+    </table>
+  </div>
+)}
         {page === 'analisis' && (
   <div style={{ display:'grid', gap:'20px' }}>
 
@@ -729,6 +800,36 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
             </div>
           </div>
         )}
+        <div
+  style={{
+    textAlign:'center',
+    marginTop:'40px',
+    padding:'20px',
+    color:'#64748b',
+    borderTop:'1px solid #e2e8f0',
+    fontSize:'14px'
+  }}
+>
+  <div>
+    Sistem Informasi Ekonomi Daerah
+  </div>
+
+  <div>
+    Developed by Kayla Rafifah Wijaya
+  </div>
+
+  <div>
+    NIM 245020400111044
+  </div>
+
+  <div>
+    Introduction to Data Science for Economics (GA)
+  </div>
+
+  <div>
+    Universitas Brawijaya • 2026
+  </div>
+</div>
       </div>
     </div>
   );
