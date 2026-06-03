@@ -101,7 +101,7 @@ function LoginPage({ onLogin, onDosenLogin }) {
   );
 }
 
-function WelcomePage({ onStart }) {
+function WelcomePage({ onStart, role }) {
   return (
     <div style={{
       minHeight: '100vh', background: 'linear-gradient(135deg, #2563eb, #60a5fa, #dbeafe)',
@@ -113,9 +113,72 @@ function WelcomePage({ onStart }) {
         border: '1px solid rgba(255,255,255,0.4)', maxWidth: '520px'
       }}>
         <div style={{ fontSize: '64px', marginBottom: '16px' }}>🎉</div>
-        <h1 style={{ color: 'white', fontSize: '28px', margin: '0 0 16px', fontWeight: 'bold' }}>
-          Selamat kamu berhasil login!
-        </h1>
+        <h1 style={{
+  color: 'white',
+  fontSize: '28px',
+  margin: '0 0 16px',
+  fontWeight: 'bold'
+}}>
+  {role === 'dosen'
+    ? 'Selamat Datang Dosen 👨‍🏫'
+    : 'Selamat Anda Berhasil Login 🎉'}
+</h1>
+
+<div style={{
+  background: 'rgba(255,255,255,0.12)',
+  padding: '24px',
+  borderRadius: '20px',
+  marginTop: '20px',
+  marginBottom: '30px',
+  lineHeight: '1.8',
+  color: 'white',
+  maxWidth: '700px',
+  marginLeft: 'auto',
+  marginRight: 'auto'
+}}>
+  <p style={{ margin: 0, fontSize: '18px' }}>
+    Website ini dirancang dan dibuat untuk memenuhi tugas proyek akhir mata kuliah
+  </p>
+
+  <h3 style={{
+    marginTop: '15px',
+    marginBottom: '10px',
+    fontSize: '22px'
+  }}>
+    Introduction to Data Science for Economics
+  </h3>
+
+  <p style={{
+    margin: '0 0 15px 0',
+    fontSize: '18px',
+    fontWeight: '600'
+  }}>
+    Kelas GA
+  </p>
+
+  <p style={{
+    margin: 0,
+    fontSize: '16px',
+    opacity: 0.9
+  }}>
+    Disusun oleh
+  </p>
+
+  <h3 style={{
+    marginTop: '10px',
+    marginBottom: '5px',
+    fontSize: '22px'
+  }}>
+    Kayla Rafifah Wijaya
+  </h3>
+
+  <p style={{
+    margin: 0,
+    fontSize: '18px'
+  }}>
+    245020400111044
+  </p>
+</div>
         <div style={{
           background: 'rgba(255,255,255,0.2)', borderRadius: '16px', padding: '24px', marginBottom: '32px'
         }}>
@@ -223,12 +286,18 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
         setAuthState('welcome');
       }}
       onDosenLogin={() => {
-        setRole('dosen');
-        setAuthState('dashboard');
-      }}
+  setRole('dosen');
+  setAuthState('welcome');
+}}
     />
   );
-  if (authState === 'welcome') return <WelcomePage onStart={() => setAuthState('dashboard')} />;
+ if (authState === 'welcome')
+  return (
+    <WelcomePage
+      role={role}
+      onStart={() => setAuthState('dashboard')}
+    />
+  );
 
   const sidebarItems = [
     { id: 'overview', label: 'Overview', icon: '📊', group: 'DASHBOARD' },
