@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const API = 'http://localhost:3000';
+const API = 'https://ekonomi-daerah-fullstack-production.up.railway.app';
 const CREDENTIALS = { username: 'introdata_GA', password: 'Kayla_044' };
 
 const colors = {
