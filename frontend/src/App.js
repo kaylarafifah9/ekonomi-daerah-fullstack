@@ -325,7 +325,7 @@ if (
   const akhirPeng = pengangguranData[pengangguranData.length - 1];
 
   insightText =
-    `PDRB Kabupaten ${selectedKabupaten} meningkat dari ` +
+    `PDRB Kabupaten ${selectedKabupatenAnalisis} meningkat dari ` +
     `${Number(awalPdrb.nilai_pdrb).toLocaleString('id-ID')} ` +
     `pada tahun ${awalPdrb.tahun} menjadi ` +
     `${Number(akhirPdrb.nilai_pdrb).toLocaleString('id-ID')} ` +
