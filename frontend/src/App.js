@@ -293,9 +293,9 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
   label: `${item.kabupaten} (${item.tahun})`
 }));
 const selectedKabupaten =
-  selectedKabupatenFilter === 'Semua Kabupaten'
+  selectedKabupaten === 'Semua Kabupaten'
     ? 'Malang'
-    : selectedKabupatenFilter;
+    : selectedKabupaten;
 
 const pdrbData = pdrb
   .filter(item => item.kabupaten === selectedKabupaten)
