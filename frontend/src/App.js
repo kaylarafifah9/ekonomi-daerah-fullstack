@@ -15,7 +15,7 @@ const colors = {
   border: '#f8bbd0',
 };
 
-function LoginPage({ onLogin }) {
+function LoginPage({ onLogin, onDosenLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -77,6 +77,24 @@ function LoginPage({ onLogin }) {
           }}>
             Login 🔐
           </button>
+          <button
+  type="button"
+  onClick={onDosenLogin}
+  style={{
+    width: '100%',
+    padding: '14px',
+    marginTop: '12px',
+    background: 'white',
+    color: '#e91e8c',
+    border: '2px solid #e91e8c',
+    borderRadius: '10px',
+    fontSize: '16px',
+    cursor: 'pointer',
+    fontWeight: 'bold'
+  }}
+>
+  👨‍🏫 Login sebagai Dosen
+</button>
         </form>
       </div>
     </div>
@@ -140,6 +158,7 @@ function WelcomePage({ onStart }) {
 
 function App() {
   const [authState, setAuthState] = useState('login');
+  const [role, setRole] = useState('');
   const [page, setPage] = useState('overview');
   const [pdrb, setPdrb] = useState([]);
   const [kemiskinan, setKemiskinan] = useState([]);
@@ -183,7 +202,19 @@ function App() {
   const avgKemiskinan = kemiskinan.length ? (kemiskinan.reduce((a, b) => a + b.persentase, 0) / kemiskinan.length).toFixed(1) : 0;
   const avgTPT = pengangguran.length ? (pengangguran.reduce((a, b) => a + b.tingkat_tpt, 0) / pengangguran.length).toFixed(1) : 0;
 
-  if (authState === 'login') return <LoginPage onLogin={() => setAuthState('welcome')} />;
+  if (authState === 'login')
+  return (
+    <LoginPage
+      onLogin={() => {
+        setRole('mahasiswa');
+        setAuthState('welcome');
+      }}
+      onDosenLogin={() => {
+        setRole('dosen');
+        setAuthState('dashboard');
+      }}
+    />
+  );
   if (authState === 'welcome') return <WelcomePage onStart={() => setAuthState('dashboard')} />;
 
   const sidebarItems = [
@@ -255,7 +286,17 @@ function App() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
           <h2 style={{ margin: 0, color: colors.text }}>{pageTitle[page]}</h2>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ background: colors.soft, padding: '6px 14px', borderRadius: '20px', color: colors.primary, fontSize: '14px' }}>Kayla Rafifah</div>
+            <div style={{
+  background: colors.soft,
+  padding: '6px 14px',
+  borderRadius: '20px',
+  color: colors.primary,
+  fontSize: '14px'
+}}>
+  {role === 'dosen'
+    ? '👨‍🏫 Dosen'
+    : '👩‍🎓 Mahasiswa'}
+</div>
             <div style={{ background: colors.primary, color: 'white', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>KR</div>
           </div>
         </div>
