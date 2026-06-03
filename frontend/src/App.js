@@ -293,9 +293,9 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
   label: `${item.kabupaten} (${item.tahun})`
 }));
 const selectedKabupatenAnalisis =
-  selectedKabupaten === 'Semua Kabupaten'
+  filterKabupaten === ''
     ? 'Malang'
-    : selectedKabupaten;
+    : filterKabupaten;
 const pdrbData = pdrb
   .filter(item => item.kabupaten === selectedKabupatenAnalisis)
   .sort((a, b) => a.tahun - b.tahun);
@@ -305,7 +305,7 @@ const kemiskinanData = kemiskinan
   .sort((a, b) => a.tahun - b.tahun);
 
 const pengangguranData = pengangguran
-  .filter(item => item.kabupaten === selectedKabupaten)
+  .filter(item => item.kabupaten === selectedKabupatenAnalisis)
   .sort((a, b) => a.tahun - b.tahun);
 
 let insightText = '';
