@@ -554,6 +554,7 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
           </div>
         )}
         {page === 'perbandingan' && (
+<>
   <div style={cardStyle}>
     <h2>⚖️ Perbandingan Daerah</h2>
 
@@ -563,8 +564,8 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
 
     <table
       style={{
-        width:'100%',
-        borderCollapse:'collapse'
+        width: '100%',
+        borderCollapse: 'collapse'
       }}
     >
       <thead>
@@ -577,124 +578,46 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
       </thead>
 
       <tbody>
-        {[...new Set(pdrb.map(d => d.kabupaten))]
-          .map(kab => {
-
-            const p =
-              pdrb.find(
-                d => d.kabupaten === kab
-              );
-
-            const k =
-              kemiskinan.find(
-                d => d.kabupaten === kab
-              );
-
-            const pg =
-              pengangguran.find(
-                d => d.kabupaten === kab
-              );
-
-            return (
-              <tr key={kab}>
-                <td>{kab}</td>
-
-                <td>
-                  {p?.nilai_pdrb || '-'}
-                </td>
-
-                <td>
-                  {k?.persentase || '-'}%
-                </td>
-
-                <td>
-                  {pg?.tingkat_tpt || '-'}%
-                </td>
-              </tr>
-            );
-          })}
+        {comparisonData.map((row, i) => (
+          <tr key={i}>
+            <td>{row.kabupaten}</td>
+            <td>{row.pdrb}</td>
+            <td>{row.kemiskinan}%</td>
+            <td>{row.pengangguran}%</td>
+          </tr>
+        ))}
       </tbody>
     </table>
-        {page === 'analisis' && (
-  <div style={{ display:'grid', gap:'20px' }}>
-
-    <div style={cardStyle}>
-      <h3>📈 Ringkasan Statistik</h3>
-
-      <p>
-        Total Data PDRB :
-        <b> {pdrb.length}</b>
-      </p>
-
-      <p>
-        Total Data Kemiskinan :
-        <b> {kemiskinan.length}</b>
-      </p>
-
-      <p>
-        Total Data Pengangguran :
-        <b> {pengangguran.length}</b>
-      </p>
-    </div>
-
-    <div style={cardStyle}>
-      <h3>🔍 Insight Otomatis</h3>
-
-      <p>
-        Kabupaten dengan PDRB tertinggi:
-        <b>
-          {" "}
-          {pdrb.length
-            ? pdrb.reduce((a,b)=>
-                a.nilai_pdrb>b.nilai_pdrb?a:b
-              ).kabupaten
-            : '-'}
-        </b>
-      </p>
-
-      <p>
-        Kabupaten dengan tingkat kemiskinan tertinggi:
-        <b>
-          {" "}
-          {kemiskinan.length
-            ? kemiskinan.reduce((a,b)=>
-                a.persentase>b.persentase?a:b
-              ).kabupaten
-            : '-'}
-        </b>
-      </p>
-
-      <p>
-        Kabupaten dengan pengangguran tertinggi:
-        <b>
-          {" "}
-          {pengangguran.length
-            ? pengangguran.reduce((a,b)=>
-                a.tingkat_tpt>b.tingkat_tpt?a:b
-              ).kabupaten
-            : '-'}
-        </b>
-      </p>
-    </div>
-
-    <div style={cardStyle}>
-      <h3>📝 Interpretasi</h3>
-
-      <p>
-        Dashboard ini digunakan untuk
-        memantau perkembangan ekonomi daerah
-        melalui indikator PDRB, kemiskinan,
-        dan tingkat pengangguran.
-      </p>
-
-      <p>
-        Data dapat difilter berdasarkan tahun
-        dan kabupaten untuk mendukung analisis
-        ekonomi regional.
-      </p>
-    </div>
-
   </div>
+
+  <div style={cardStyle}>
+    <h3>📊 Grafik Perbandingan PDRB</h3>
+
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={comparisonData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="kabupaten" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="pdrb" fill="#2563eb" />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+
+  <div style={cardStyle}>
+    <h3>📝 Kesimpulan Sistem</h3>
+
+    <ul>
+      <li>Surabaya memiliki nilai PDRB tertinggi.</li>
+      <li>Kediri memiliki tingkat kemiskinan tertinggi.</li>
+      <li>Surabaya memiliki tingkat pengangguran tertinggi.</li>
+      <li>
+        Sistem membantu membandingkan indikator ekonomi antar daerah.
+      </li>
+    </ul>
+  </div>
+</>
 )}
         {page === 'tentang' && (
   <div style={cardStyle}>
