@@ -201,7 +201,20 @@ function App() {
   const totalPdrb = pdrb.reduce((a, b) => a + b.nilai_pdrb, 0);
   const avgKemiskinan = kemiskinan.length ? (kemiskinan.reduce((a, b) => a + b.persentase, 0) / kemiskinan.length).toFixed(1) : 0;
   const avgTPT = pengangguran.length ? (pengangguran.reduce((a, b) => a + b.tingkat_tpt, 0) / pengangguran.length).toFixed(1) : 0;
+  const pdrbChartData = filterData(pdrb).map(item => ({
+  ...item,
+  label: `${item.kabupaten} (${item.tahun})`
+}));
 
+const kemiskinanChartData = filterData(kemiskinan).map(item => ({
+  ...item,
+  label: `${item.kabupaten} (${item.tahun})`
+}));
+
+const pengangguranChartData = filterData(pengangguran).map(item => ({
+  ...item,
+  label: `${item.kabupaten} (${item.tahun})`
+}));
   if (authState === 'login')
   return (
     <LoginPage
@@ -395,10 +408,7 @@ function App() {
           <div style={cardStyle}>
             <h3 style={{ color: colors.text }}>Data PDRB</h3>
             <ResponsiveContainer width="100%" height={250}>
-              const pdrbChartData = filterData(pdrb).map(item => ({
-  ...item,
-  label: `${item.kabupaten} (${item.tahun})`
-}));
+            
               <BarChart data={pdrbChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#fce4ec" />
                 <XAxis
@@ -416,10 +426,6 @@ function App() {
           <div style={cardStyle}>
             <h3 style={{ color: colors.text }}>Data Kemiskinan</h3>
             <ResponsiveContainer width="100%" height={250}>
-              const kemiskinanChartData = filterData(kemiskinan).map(item => ({
-  ...item,
-  label: `${item.kabupaten} (${item.tahun})`
-}));
               <BarChart data={kemiskinanChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#fce4ec" />
                 <XAxis
@@ -437,10 +443,6 @@ function App() {
           <div style={cardStyle}>
             <h3 style={{ color: colors.text }}>Data Pengangguran</h3>
             <ResponsiveContainer width="100%" height={250}>
-              const pengangguranChartData = filterData(pengangguran).map(item => ({
-  ...item,
-  label: `${item.kabupaten} (${item.tahun})`
-}));
               <BarChart data={pengangguranChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#fce4ec" />
                 <XAxis
