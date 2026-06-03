@@ -292,6 +292,51 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
   ...item,
   label: `${item.kabupaten} (${item.tahun})`
 }));
+const selectedKabupaten =
+  selectedKabupatenFilter === 'Semua Kabupaten'
+    ? 'Malang'
+    : selectedKabupatenFilter;
+
+const pdrbData = pdrb
+  .filter(item => item.kabupaten === selectedKabupaten)
+  .sort((a, b) => a.tahun - b.tahun);
+
+const kemiskinanData = kemiskinan
+  .filter(item => item.kabupaten === selectedKabupaten)
+  .sort((a, b) => a.tahun - b.tahun);
+
+const pengangguranData = pengangguran
+  .filter(item => item.kabupaten === selectedKabupaten)
+  .sort((a, b) => a.tahun - b.tahun);
+
+let insightText = '';
+
+if (
+  pdrbData.length > 1 &&
+  kemiskinanData.length > 1 &&
+  pengangguranData.length > 1
+) {
+  const awalPdrb = pdrbData[0];
+  const akhirPdrb = pdrbData[pdrbData.length - 1];
+
+  const awalKem = kemiskinanData[0];
+  const akhirKem = kemiskinanData[kemiskinanData.length - 1];
+
+  const awalPeng = pengangguranData[0];
+  const akhirPeng = pengangguranData[pengangguranData.length - 1];
+
+  insightText =
+    `PDRB Kabupaten ${selectedKabupaten} meningkat dari ` +
+    `${Number(awalPdrb.nilai_pdrb).toLocaleString('id-ID')} ` +
+    `pada tahun ${awalPdrb.tahun} menjadi ` +
+    `${Number(akhirPdrb.nilai_pdrb).toLocaleString('id-ID')} ` +
+    `pada tahun ${akhirPdrb.tahun}. ` +
+    `Pada periode yang sama tingkat kemiskinan menurun dari ` +
+    `${awalKem.persentase}% menjadi ${akhirKem.persentase}% ` +
+    `dan tingkat pengangguran menurun dari ` +
+    `${awalPeng.tingkat_tpt}% menjadi ${akhirPeng.tingkat_tpt}%. ` +
+    `Kondisi ini menunjukkan adanya perbaikan indikator ekonomi daerah selama periode pengamatan.`;
+}
   if (authState === 'login')
   return (
     <LoginPage
@@ -315,7 +360,6 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
 
   const sidebarItems = [
   { id: 'overview', label: 'Overview', icon: '📊', group: 'DASHBOARD' },
-  { id: 'analisis', label: 'Analisis', icon: '📈', group: 'DASHBOARD' },
 
   { id: 'pdrb', label: 'PDRB', icon: '🏛️', group: 'DATA' },
   { id: 'kemiskinan', label: 'Kemiskinan', icon: '👥', group: 'DATA' },
@@ -326,9 +370,9 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
 
   { id: 'tentang', label: 'Tentang Sistem', group: 'INFORMASI' },
   {
-  id:'perbandingan',
-  label:'Perbandingan',
-  icon:'⚖️',
+  id:'analisis',
+  label:'Analisis',
+  icon:'📈',
   group:'DASHBOARD'
 },
 ];
@@ -357,9 +401,8 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
     pengangguran: '💼 Data Pengangguran',
     input: '✏️ Input Manual',
     upload: '⬆️ Upload CSV',
-    analisis: '📈 Analisis Data',
     tentang: 'ℹ️ Tentang Sistem',
-    perbandingan: '⚖️ Perbandingan Daerah',
+    analisis: '📈 Analisis Data',
   };
   const exportCSV = (data, filename) => {
   if (!data.length) return;
@@ -589,10 +632,10 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
             <DataTable data={filterData(pengangguran)} columns={['id','tahun','kabupaten','tingkat_tpt']} onDelete={(id) => handleDelete('pengangguran', id)} colors={colors} />
           </div>
         )}
-        {page === 'perbandingan' && (
+        {page === 'analisis' && (
 <>
   <div style={cardStyle}>
-    <h2>⚖️ Perbandingan Daerah</h2>
+    <h2>📈 Analisis Data</h2>
 
     <p>
       Ringkasan indikator ekonomi daerah berdasarkan data yang tersedia.
@@ -642,16 +685,18 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
   </div>
 
   <div style={cardStyle}>
-    <h3>📝 Kesimpulan Sistem</h3>
+    <h3>📝 Kesimpulan Otomatis</h3>
 
-    <ul>
-      <li>Surabaya memiliki nilai PDRB tertinggi.</li>
-      <li>Kediri memiliki tingkat kemiskinan tertinggi.</li>
-      <li>Surabaya memiliki tingkat pengangguran tertinggi.</li>
-      <li>
-        Sistem membantu membandingkan indikator ekonomi antar daerah.
-      </li>
-    </ul>
+<div
+  style={{
+    background:'#f8fafc',
+    padding:'20px',
+    borderRadius:'12px',
+    lineHeight:'1.8'
+  }}
+>
+  {insightText}
+</div>
   </div>
 </>
 )}
