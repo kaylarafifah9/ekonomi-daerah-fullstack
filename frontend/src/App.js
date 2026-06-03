@@ -6,13 +6,13 @@ const API = 'https://ekonomi-daerah-fullstack-production.up.railway.app';
 const CREDENTIALS = { username: 'introdata_GA', password: 'Kayla_044' };
 
 const colors = {
-  primary: '#e91e8c',
-  soft: '#fce4ec',
-  sidebar: '#fff0f5',
-  accent: '#f48fb1',
-  text: '#4a0020',
+  primary: '#2563eb',     // biru elegan
+  soft: '#eff6ff',
+  sidebar: '#f8fafc',
+  accent: '#60a5fa',
+  text: '#1e293b',
   card: '#ffffff',
-  border: '#f8bbd0',
+  border: '#cbd5e1',
 };
 
 function LoginPage({ onLogin, onDosenLogin }) {
@@ -36,34 +36,34 @@ function LoginPage({ onLogin, onDosenLogin }) {
     }}>
       <div style={{
         background: 'white', borderRadius: '20px', padding: '48px 40px',
-        boxShadow: '0 8px 32px rgba(233,30,140,0.15)', width: '380px', textAlign: 'center'
+        boxShadow: '0 8px 32px rgba(37, 99, 235, 0.15)', width: '380px', textAlign: 'center'
       }}>
-        <div style={{ fontSize: '48px', marginBottom: '8px' }}>🌸</div>
-        <h2 style={{ color: '#e91e8c', margin: '0 0 4px' }}>Ekonomi Daerah</h2>
-        <p style={{ color: '#c06080', fontSize: '13px', marginBottom: '32px' }}>Sistem Informasi Ekonomi</p>
+        <div style={{ fontSize: '48px', marginBottom: '8px' }}>📈</div>
+        <h2 style={{ color: '#2563eb', margin: '0 0 4px' }}>Ekonomi Daerah</h2>
+        <p style={{ color: '#1e293b', fontSize: '13px', marginBottom: '32px' }}>Sistem Informasi Ekonomi</p>
 
         <form onSubmit={handleLogin}>
           <div style={{ marginBottom: '16px', textAlign: 'left' }}>
-            <label style={{ fontSize: '13px', color: '#4a0020', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>Username</label>
+            <label style={{ fontSize: '13px', color: '#1e293b', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>Username</label>
             <input
               type="text" value={username} onChange={e => setUsername(e.target.value)}
               placeholder="Masukkan username"
               style={{
                 width: '100%', padding: '12px', borderRadius: '10px',
-                border: '1px solid #f8bbd0', fontSize: '14px', outline: 'none',
+                border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none',
                 background: '#fff9fb', boxSizing: 'border-box'
               }}
               required
             />
           </div>
           <div style={{ marginBottom: '24px', textAlign: 'left' }}>
-            <label style={{ fontSize: '13px', color: '#4a0020', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>Password</label>
+            <label style={{ fontSize: '13px', color: '#1e293b', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>Password</label>
             <input
               type="password" value={password} onChange={e => setPassword(e.target.value)}
               placeholder="Masukkan password"
               style={{
                 width: '100%', padding: '12px', borderRadius: '10px',
-                border: '1px solid #f8bbd0', fontSize: '14px', outline: 'none',
+                border: '1px solid #cbd5e1', fontSize: '14px', outline: 'none',
                 background: '#fff9fb', boxSizing: 'border-box'
               }}
               required
@@ -71,7 +71,7 @@ function LoginPage({ onLogin, onDosenLogin }) {
           </div>
           {error && <p style={{ color: '#e53935', fontSize: '13px', marginBottom: '16px' }}>{error}</p>}
           <button type="submit" style={{
-            width: '100%', padding: '14px', background: 'linear-gradient(135deg, #e91e8c, #f48fb1)',
+            width: '100%', padding: '14px', background: 'linear-gradient(135deg, #2563eb, #60a5fa)',
             color: 'white', border: 'none', borderRadius: '10px', fontSize: '16px',
             cursor: 'pointer', fontWeight: 'bold'
           }}>
@@ -85,8 +85,8 @@ function LoginPage({ onLogin, onDosenLogin }) {
     padding: '14px',
     marginTop: '12px',
     background: 'white',
-    color: '#e91e8c',
-    border: '2px solid #e91e8c',
+    color: '#2563eb',
+    border: '2px solid #2563eb',
     borderRadius: '10px',
     fontSize: '16px',
     cursor: 'pointer',
@@ -104,7 +104,7 @@ function LoginPage({ onLogin, onDosenLogin }) {
 function WelcomePage({ onStart }) {
   return (
     <div style={{
-      minHeight: '100vh', background: 'linear-gradient(135deg, #e91e8c, #f48fb1, #fce4ec)',
+      minHeight: '100vh', background: 'linear-gradient(135deg, #2563eb, #60a5fa, #dbeafe)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Segoe UI, Arial'
     }}>
       <div style={{
@@ -141,7 +141,7 @@ function WelcomePage({ onStart }) {
         <button onClick={onStart} style={{
           padding: '16px 48px',
           background: 'white',
-          color: '#e91e8c',
+          color: '#2563eb',
           border: 'none',
           borderRadius: '50px',
           fontSize: '18px',
@@ -253,15 +253,15 @@ function App() {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Segoe UI, Arial', background: '#fff5f8' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Segoe UI, Arial',background: '#f8fafc' }}>
       <div style={{ width: '240px', background: colors.sidebar, borderRight: `1px solid ${colors.border}`, padding: '20px 0', position: 'fixed', height: '100vh', overflowY: 'auto' }}>
         <div style={{ padding: '0 20px 20px', borderBottom: `1px solid ${colors.border}` }}>
-          <div style={{ fontSize: '18px', fontWeight: 'bold', color: colors.primary }}>🌸 Ekonomi Daerah</div>
-          <div style={{ fontSize: '12px', color: '#c06080' }}>Sistem Informasi</div>
+          <div style={{ fontSize: '18px', fontWeight: 'bold', color: colors.primary }}>📊 Ekonomi Daerah</div>
+          <div style={{ fontSize: '12px', color: '#1e293b' }}>Sistem Informasi</div>
         </div>
         {['DASHBOARD', 'DATA', 'INPUT'].map(group => (
           <div key={group} style={{ marginTop: '16px' }}>
-            <div style={{ padding: '0 20px', fontSize: '11px', color: '#c06080', fontWeight: 'bold', marginBottom: '4px' }}>{group}</div>
+            <div style={{ padding: '0 20px', fontSize: '11px', color: '#1e293b', fontWeight: 'bold', marginBottom: '4px' }}>{group}</div>
             {sidebarItems.filter(i => i.group === group).map(item => (
               <div key={item.id} onClick={() => setPage(item.id)}
                 style={{
@@ -277,7 +277,7 @@ function App() {
           </div>
         ))}
         <div style={{ marginTop: '16px' }}>
-          <div style={{ padding: '0 20px', fontSize: '11px', color: '#c06080', fontWeight: 'bold', marginBottom: '4px' }}>AKUN</div>
+          <div style={{ padding: '0 20px', fontSize: '11px', color: '#1e293b', fontWeight: 'bold', marginBottom: '4px' }}>AKUN</div>
           <div onClick={() => setAuthState('login')} style={{ padding: '10px 20px', display: 'flex', alignItems: 'center', gap: '10px', color: '#e53935', cursor: 'pointer' }}>🚪 Logout</div>
         </div>
       </div>
