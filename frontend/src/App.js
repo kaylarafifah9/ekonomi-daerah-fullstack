@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend
+} from 'recharts';
 
 const API = 'https://ekonomi-daerah-fullstack-production.up.railway.app';
 const CREDENTIALS = { username: 'introdata_GA', password: 'Kayla_044' };
@@ -14,7 +25,32 @@ const colors = {
   card: '#ffffff',
   border: '#cbd5e1',
 };
-
+const comparisonData = [
+  {
+    kabupaten: 'Blitar',
+    pdrb: 150000,
+    kemiskinan: 8.5,
+    pengangguran: 4.2
+  },
+  {
+    kabupaten: 'Malang',
+    pdrb: 300000,
+    kemiskinan: 7.2,
+    pengangguran: 5.1
+  },
+  {
+    kabupaten: 'Kediri',
+    pdrb: 200000,
+    kemiskinan: 9.1,
+    pengangguran: 4.8
+  },
+  {
+    kabupaten: 'Surabaya',
+    pdrb: 500000,
+    kemiskinan: 6.3,
+    pengangguran: 6.3
+  }
+];
 function LoginPage({ onLogin, onDosenLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
