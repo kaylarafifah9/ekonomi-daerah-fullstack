@@ -615,6 +615,41 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
           })}
       </tbody>
     </table>
+    {page === 'perbandingan' && (
+  <div style={cardStyle}>
+    <h3>⚖️ Perbandingan Daerah</h3>
+
+    <table>
+      ...
+    </table>
+
+    {/* GRAFIK PERBANDINGAN */}
+    <ResponsiveContainer width="100%" height={350}>
+      <BarChart data={comparisonData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="kabupaten" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+
+        <Bar dataKey="pdrb" name="PDRB" />
+        <Bar dataKey="kemiskinan" name="Kemiskinan (%)" />
+        <Bar dataKey="pengangguran" name="Pengangguran (%)" />
+      </BarChart>
+    </ResponsiveContainer>
+
+    {/* KESIMPULAN */}
+    <div style={{
+      marginTop:'20px',
+      padding:'20px',
+      background:'#f8fafc',
+      borderRadius:'12px'
+    }}>
+      ...
+    </div>
+
+  </div>
+)}
   </div>
 )}
         {page === 'analisis' && (
@@ -819,11 +854,11 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
   </div>
 
   <div>
-    NIM 245020400111044
+    Introduction to Data Science for Economics (GA)
   </div>
 
-  <div>
-    Introduction to Data Science for Economics (GA)
+<div>
+    Dosen Pengampu : David Kaluge, SE., MS., M.Ec.Dev., Ph.D.
   </div>
 
   <div>
