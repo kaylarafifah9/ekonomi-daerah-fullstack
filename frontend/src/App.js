@@ -120,7 +120,7 @@ function WelcomePage({ onStart, role }) {
   fontWeight: 'bold'
 }}>
   {role === 'dosen'
-    ? 'Selamat Datang Dosen 👨‍🏫'
+    ? 'Selamat Datang 👨‍🏫'
     : 'Selamat Anda Berhasil Login 🎉'}
 </h1>
 
@@ -177,28 +177,6 @@ function WelcomePage({ onStart, role }) {
     fontSize: '18px'
   }}>
     245020400111044
-  </p>
-</div>
-        <div style={{
-          background: 'rgba(255,255,255,0.2)', borderRadius: '16px', padding: '24px', marginBottom: '32px'
-        }}>
-          <p style={{ color: 'white', fontSize: '15px', lineHeight: '1.7', margin: 0 }}>
-            Website ini dibuat untuk memenuhi syarat projek tugas akhir semester
-          </p>
-          <p style={{ color: 'white', fontSize: '15px', fontWeight: 'bold', margin: '12px 0 4px' }}>
-            Mata Kuliah:
-          </p>
-          <p style={{ color: 'white', fontSize: '14px', margin: '0 0 16px' }}>
-            Introduction to Data Science for Economics (GA)
-          </p>
-          <p style={{ color: 'white', fontSize: '13px', margin: 0, opacity: 0.9 }}>
-            oleh:
-          </p>
-          <p style={{ color: 'white', fontSize: '16px', fontWeight: 'bold', margin: '4px 0 0' }}>
-            Kayla Rafifah Wijaya
-          </p>
-          <p style={{ color: 'white', fontSize: '13px', opacity: 0.9, margin: '2px 0 0' }}>
-            245020400111044
           </p>
         </div>
         <button onClick={onStart} style={{
