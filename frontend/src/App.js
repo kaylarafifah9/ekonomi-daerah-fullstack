@@ -307,13 +307,15 @@ const kemiskinanData = kemiskinan
 const pengangguranData = pengangguran
   .filter(item => item.kabupaten === selectedKabupatenAnalisis)
   .sort((a, b) => a.tahun - b.tahun);
-
-let insightText = '';
+console.log('PDRB:', pdrbData);
+console.log('Kemiskinan:', kemiskinanData);
+console.log('Pengangguran:', pengangguranData);
+let insightText = 'Data belum cukup untuk menghasilkan kesimpulan otomatis.';
 
 if (
-  pdrbData.length > 1 &&
-  kemiskinanData.length > 1 &&
-  pengangguranData.length > 1
+  pdrbData.length > 0 &&
+  kemiskinanData.length > 0 &&
+  pengangguranData.length > 0
 ) {
   const awalPdrb = pdrbData[0];
   const akhirPdrb = pdrbData[pdrbData.length - 1];
