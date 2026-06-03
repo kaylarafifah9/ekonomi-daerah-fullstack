@@ -278,13 +278,18 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
   );
 
   const sidebarItems = [
-    { id: 'overview', label: 'Overview', icon: '📊', group: 'DASHBOARD' },
-    { id: 'pdrb', label: 'PDRB', icon: '🏛️', group: 'DATA' },
-    { id: 'kemiskinan', label: 'Kemiskinan', icon: '👥', group: 'DATA' },
-    { id: 'pengangguran', label: 'Pengangguran', icon: '💼', group: 'DATA' },
-    { id: 'input', label: 'Input Manual', icon: '✏️', group: 'INPUT' },
-    { id: 'upload', label: 'Upload CSV', icon: '⬆️', group: 'INPUT' },
-  ];
+  { id: 'overview', label: 'Overview', icon: '📊', group: 'DASHBOARD' },
+  { id: 'analisis', label: 'Analisis', icon: '📈', group: 'DASHBOARD' },
+
+  { id: 'pdrb', label: 'PDRB', icon: '🏛️', group: 'DATA' },
+  { id: 'kemiskinan', label: 'Kemiskinan', icon: '👥', group: 'DATA' },
+  { id: 'pengangguran', label: 'Pengangguran', icon: '💼', group: 'DATA' },
+
+  { id: 'input', label: 'Input Manual', icon: '✏️', group: 'INPUT' },
+  { id: 'upload', label: 'Upload CSV', icon: '⬆️', group: 'INPUT' },
+
+  { id: 'tentang', label: 'Tentang Sistem', icon: 'ℹ️', group: 'INFORMASI' }
+];
 
   const inputStyle = {
     padding: '8px 12px', borderRadius: '8px', border: `1px solid ${colors.border}`,
@@ -310,7 +315,26 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
     pengangguran: '💼 Data Pengangguran',
     input: '✏️ Input Manual',
     upload: '⬆️ Upload CSV',
+    analisis: '📈 Analisis Data',
+    tentang: 'ℹ️ Tentang Sistem',
   };
+  const exportCSV = (data, filename) => {
+  if (!data.length) return;
+
+  const csv =
+    Object.keys(data[0]).join(",") +
+    "\n" +
+    data.map(row => Object.values(row).join(",")).join("\n");
+
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+};
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Segoe UI, Arial',background: '#f8fafc' }}>
@@ -453,8 +477,28 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
 
         {page === 'pdrb' && (
           <div style={cardStyle}>
-            <h3 style={{ color: colors.text }}>Data PDRB</h3>
-            <ResponsiveContainer width="100%" height={250}>
+
+  <div
+    style={{
+      display:'flex',
+      justifyContent:'space-between',
+      alignItems:'center',
+      marginBottom:'16px'
+    }}
+  >
+    <h3 style={{ color: colors.text }}>
+      Data PDRB
+    </h3>
+
+    <button
+      onClick={() => exportCSV(filterData(pdrb), 'pdrb.csv')}
+      style={btnPrimary}
+    >
+      📥 Export CSV
+    </button>
+  </div>
+
+  <ResponsiveContainer width="100%" height={250}>
             
               <BarChart data={pdrbChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#fce4ec" />
@@ -502,7 +546,127 @@ const pengangguranChartData = filterData(pengangguran).map(item => ({
             <DataTable data={filterData(pengangguran)} columns={['id','tahun','kabupaten','tingkat_tpt']} onDelete={(id) => handleDelete('pengangguran', id)} colors={colors} />
           </div>
         )}
+        {page === 'analisis' && (
+  <div style={{ display:'grid', gap:'20px' }}>
 
+    <div style={cardStyle}>
+      <h3>📈 Ringkasan Statistik</h3>
+
+      <p>
+        Total Data PDRB :
+        <b> {pdrb.length}</b>
+      </p>
+
+      <p>
+        Total Data Kemiskinan :
+        <b> {kemiskinan.length}</b>
+      </p>
+
+      <p>
+        Total Data Pengangguran :
+        <b> {pengangguran.length}</b>
+      </p>
+    </div>
+
+    <div style={cardStyle}>
+      <h3>🔍 Insight Otomatis</h3>
+
+      <p>
+        Kabupaten dengan PDRB tertinggi:
+        <b>
+          {" "}
+          {pdrb.length
+            ? pdrb.reduce((a,b)=>
+                a.nilai_pdrb>b.nilai_pdrb?a:b
+              ).kabupaten
+            : '-'}
+        </b>
+      </p>
+
+      <p>
+        Kabupaten dengan tingkat kemiskinan tertinggi:
+        <b>
+          {" "}
+          {kemiskinan.length
+            ? kemiskinan.reduce((a,b)=>
+                a.persentase>b.persentase?a:b
+              ).kabupaten
+            : '-'}
+        </b>
+      </p>
+
+      <p>
+        Kabupaten dengan pengangguran tertinggi:
+        <b>
+          {" "}
+          {pengangguran.length
+            ? pengangguran.reduce((a,b)=>
+                a.tingkat_tpt>b.tingkat_tpt?a:b
+              ).kabupaten
+            : '-'}
+        </b>
+      </p>
+    </div>
+
+    <div style={cardStyle}>
+      <h3>📝 Interpretasi</h3>
+
+      <p>
+        Dashboard ini digunakan untuk
+        memantau perkembangan ekonomi daerah
+        melalui indikator PDRB, kemiskinan,
+        dan tingkat pengangguran.
+      </p>
+
+      <p>
+        Data dapat difilter berdasarkan tahun
+        dan kabupaten untuk mendukung analisis
+        ekonomi regional.
+      </p>
+    </div>
+
+  </div>
+)}
+        {page === 'tentang' && (
+  <div style={cardStyle}>
+    <h2>ℹ️ Tentang Sistem</h2>
+
+    <p>
+      Sistem Informasi Ekonomi Daerah
+      merupakan aplikasi berbasis web
+      fullstack yang digunakan untuk
+      mengelola dan memvisualisasikan
+      data ekonomi daerah.
+    </p>
+
+    <hr />
+
+    <h3>👩‍🎓 Pengembang</h3>
+
+    <p>
+      Kayla Rafifah Wijaya
+      <br />
+      NIM: 245020400111044
+      <br />
+      Kelas: GA
+    </p>
+
+    <h3>🛠 Teknologi</h3>
+
+    <ul>
+      <li>Frontend : ReactJS</li>
+      <li>Backend : ExpressJS</li>
+      <li>Database : PostgreSQL</li>
+      <li>Deployment : Railway + Vercel</li>
+    </ul>
+
+    <h3>📚 Mata Kuliah</h3>
+
+    <p>
+      Introduction to Data Science for Economics
+    </p>
+  </div>
+)}
         {page === 'input' && (
           <div style={{ display: 'grid', gap: '16px' }}>
             <div style={cardStyle}>
