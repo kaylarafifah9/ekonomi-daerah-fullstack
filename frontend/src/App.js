@@ -395,9 +395,16 @@ function App() {
           <div style={cardStyle}>
             <h3 style={{ color: colors.text }}>Data PDRB</h3>
             <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={filterData(pdrb)}>
+              const pdrbChartData = filterData(pdrb).map(item => ({
+  ...item,
+  label: `${item.kabupaten} (${item.tahun})`
+}));
+              <BarChart data={pdrbChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#fce4ec" />
-                <XAxis dataKey="kabupaten" /><YAxis /><Tooltip />
+                <XAxis
+  dataKey="label"
+  tick={{ fontSize: 12 }}
+/><YAxis /><Tooltip />
                 <Bar dataKey="nilai_pdrb" fill="#e91e8c" radius={[4,4,0,0]} name="Nilai PDRB" />
               </BarChart>
             </ResponsiveContainer>
@@ -409,9 +416,16 @@ function App() {
           <div style={cardStyle}>
             <h3 style={{ color: colors.text }}>Data Kemiskinan</h3>
             <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={filterData(kemiskinan)}>
+              const kemiskinanChartData = filterData(kemiskinan).map(item => ({
+  ...item,
+  label: `${item.kabupaten} (${item.tahun})`
+}));
+              <BarChart data={kemiskinanChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#fce4ec" />
-                <XAxis dataKey="kabupaten" /><YAxis /><Tooltip />
+                <XAxis
+  dataKey="label"
+  tick={{ fontSize: 12 }}
+/><YAxis /><Tooltip />
                 <Bar dataKey="jumlah_miskin" fill="#e53935" radius={[4,4,0,0]} name="Jumlah Miskin" />
               </BarChart>
             </ResponsiveContainer>
@@ -423,9 +437,16 @@ function App() {
           <div style={cardStyle}>
             <h3 style={{ color: colors.text }}>Data Pengangguran</h3>
             <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={filterData(pengangguran)}>
+              const pengangguranChartData = filterData(pengangguran).map(item => ({
+  ...item,
+  label: `${item.kabupaten} (${item.tahun})`
+}));
+              <BarChart data={pengangguranChartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#fce4ec" />
-                <XAxis dataKey="kabupaten" /><YAxis /><Tooltip />
+                <XAxis
+  dataKey="label"
+  tick={{ fontSize: 12 }}
+/><YAxis /><Tooltip />
                 <Bar dataKey="tingkat_tpt" fill="#9C27B0" radius={[4,4,0,0]} name="Tingkat TPT" />
               </BarChart>
             </ResponsiveContainer>
